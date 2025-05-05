@@ -4,12 +4,12 @@ from entities.maquina import Maquina
 
 class Pedido:
 
-  next_id = 1
+  _next_id = 1
   
   def __init__(self, cliente: Cliente, maquina: Maquina, fecha_recibido: datetime, fecha_entregado: datetime, estado: str):
 
     self.id = Pedido._next_id 
-    Pedido.next_id += 1      
+    Pedido._next_id += 1      
     
     self.cliente = cliente
     self.maquina = maquina
