@@ -1,9 +1,12 @@
+from datetime import datetime
+from entities.cliente import Cliente
+from entities.maquina import Maquina
 
 class Pedido:
 
   next_id = 1
   
-  def __init__(self, cliente: "Cliente", maquina: "Maquina", fecha_recibido: datetime, fecha_entregado: datetime, estado: str):
+  def __init__(self, cliente: Cliente, maquina: Maquina, fecha_recibido: datetime, fecha_entregado: datetime, estado: str):
 
     self.id = Pedido._next_id 
     Pedido.next_id += 1      
