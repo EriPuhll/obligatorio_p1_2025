@@ -1,12 +1,12 @@
 
 class Pedido:
 
-  next_codigo = 1
+  next_id = 1
   
   def __init__(self, cliente: "Cliente", maquina: "Maquina", fecha_recibido: datetime, fecha_entregado: datetime, estado: str):
 
     self.id = Pedido._next_id 
-    Pedido._next_id += 1      
+    Pedido.next_id += 1      
     
     self.cliente = cliente
     self.maquina = maquina
