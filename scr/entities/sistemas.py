@@ -15,9 +15,6 @@ class Sistema:
   self.clientes: Dict[int, Cliente] = {}
   self.pedidos: Dict[int, Pedido] = {}
   self.reposiciones: List[Reposicion] = []
-
-
-
 #__________________REGISTRO__________________________
 
    def registrar_cliente(self, cliente):
@@ -84,3 +81,46 @@ class Sistema:
     def actualizar_stock_por_pedido(self, pedido):
         for req in pedido.maquina.requerimientos:
             req.pieza.cantidad_disponible -= req.cantidad
+
+#_______________________Listar_______________________________
+
+def listar_clientes(self):
+    return list(self.clientes.values())
+
+def listar_piezas(self):
+    return list(self.piezas.values())
+
+def listar_maquinas(self):
+    return list(self.maquinas.values())
+
+def listar_pedidos(self, estado=None):
+    pedidos = list(self.pedidos.values())
+    if estado:
+        pedidos = [p for p in pedidos if p.estado == estado]
+    return pedidos
+
+def listar_reposiciones(self):
+    return self.reposiciones  # es una lista, no hace falta convertir
+
+def calcular_contabilidad(self):
+    costo_total = 0
+    ingreso_total = 0
+
+    for pedido in self.pedidos.values():
+        if pedido.estado == "entregado":
+            costo_total += pedido.maquina.costo_produccion
+            ingreso_total += pedido.precio_venta
+
+    ganancia = ingreso_total - costo_total
+    impuesto = ganancia * 0.25 if ganancia > 0 else 0
+    ganancia_final = ganancia - impuesto
+
+    return {
+        "costo_total": costo_total,
+        "ingreso_total": ingreso_total,
+        "ganancia_bruta": ganancia,
+        "impuesto": impuesto,
+        "ganancia_neta": ganancia_final
+    }
+
+
