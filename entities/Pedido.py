@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
-from entities.clientes import Cliente
-from entities.maquinas import Maquina
+from entities.Cliente import Cliente
+from entities.Maquina import Maquina
 
 class Pedido:
 
