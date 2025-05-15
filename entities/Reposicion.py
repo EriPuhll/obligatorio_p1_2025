@@ -1,6 +1,6 @@
-from datetime import datetime
-from entities.piezas import Pieza
+from entities.Pieza import Pieza
 from typing import Optional
+from datetime import datetime
 
 class Reposicion:
     # Contador de clase para ids de reposición
