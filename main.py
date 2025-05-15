@@ -1,13 +1,14 @@
-from entities.piezas import Pieza
-from entities.maquinas import Maquina
-from entities.requerimientos import Requerimiento
-from entities.clientes import Cliente
-from entities.clientes import ClienteParticular, Empresa
-from entities.pedidos import Pedido
-from entities.reposiciones import Reposicion
-from entities.sistemas import Sistema
-from datetime import datetime
+from entities.Cliente import Cliente, ClienteParticular, Empresa
+from entities.Maquina import Maquina
+from entities.Pedido import Pedido
+from entities.Pieza import Pieza
+from entities.Reposicion import Reposicion
+from entities.Requerimiento import Requerimiento
+from entities.Sistema import Sistema
 
+from exceptions.ExceptionClienteYaExiste import ExceptionClienteYaExiste
+from exceptions.ExceptionPiezaYaExiste import ExceptionPiezaYaExiste
+from exceptions.ExceptionMaquinaYaExiste import ExceptionMaquinaYaExiste
 
 def menu_principal():
     sistema = Sistema()
