@@ -1,14 +1,15 @@
 from datetime import datetime
 
-from entities.exceptions.ClienteYaExiste import ExceptionClienteYaExiste
-from entities.exceptions.PiezaYaExiste import ExceptionPiezaYaExiste
-from entities.exceptions.MaquinaYaExiste import ExceptionMaquinaYaExiste
+from entities.Maquina import Maquina
+from entities.Pedido import Pedido
+from entities.Pieza import Pieza
+from entities.Cliente import Cliente
+from entities.Reposicion import Reposicion
 
-from entities.piezas import Pieza
-from entities.maquinas import Maquina
-from entities.clientes import Cliente
-from entities.pedidos import Pedido
-from entities.reposiciones import Reposicion
+from exceptions.ExceptionClienteYaExiste import ExceptionClienteYaExiste
+from exceptions.ExceptionPiezaYaExiste import ExceptionPiezaYaExiste
+from exceptions.ExceptionMaquinaYaExiste import ExceptionMaquinaYaExiste
+
 
 class Sistema():
     def __init__(self):
