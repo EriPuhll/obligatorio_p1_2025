@@ -1,4 +1,4 @@
-from entities.requerimientos import Requerimiento
+from entities.Requerimiento import Requerimiento
 
 class Maquina:
     # Contador de clase para códigos de máquina
