@@ -1,4 +1,4 @@
-from entities.piezas import Pieza
+from entities.Pieza import Pieza
 
 class Requerimiento:
     def __init__(self, pieza: "Pieza", cantidad: int):
