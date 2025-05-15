@@ -1,21 +1,24 @@
-from scr.sistema import Sistema
-from scr.entities.pieza import Pieza
-from scr.entities.maquina import Maquina
-from scr.entities.requerimiento import Requerimiento
-from scr.entities.cliente import ClienteParticular, Empresa
-from scr.entities.pedido import Pedido
-from scr.entities.reposicion import Reposicion
+from entities.piezas import Pieza
+from entities.maquinas import Maquina
+from entities.requerimientos import Requerimiento
+from entities.clientes import Cliente
+from entities.clientes import ClienteParticular, Empresa
+from entities.pedidos import Pedido
+from entities.reposiciones import Reposicion
+from entities.sistemas import Sistema
 from datetime import datetime
+
 
 def menu_principal():
     sistema = Sistema()
     while True:
-        print("___________________________")
-        print("\n___ Menú Principal ___")
-        print("__________________________")
-        print("1. Registrar")
-        print("2. Listar")
+        print("\n" + "=" * 40)
+        print(" " * 10 + "MENÚ PRINCIPAL")
+        print("=" * 40)
+        print("1. Registrar datos")
+        print("2. Listar datos")
         print("3. Salir")
+        print("=" * 40)
         opcion = input("Seleccione una opción: ")
 
         if opcion == "1":
@@ -23,22 +26,23 @@ def menu_principal():
         elif opcion == "2":
             menu_listar(sistema)
         elif opcion == "3":
-            print("Saliendo del sistema...")
+            print("Gracias por usar el sistema. ¡Hasta luego!")
             break
         else:
-            print("La opción es inválida.")
+            print("Opción inválida. Intente nuevamente.")
 
 def menu_registrar(sistema):
     while True:
-        print("__________________________")
-        print("\n___ Menú Registrar ___")
-        print("__________________________")
-        print("1. Pieza")
-        print("2. Máquina")
-        print("3. Cliente")
-        print("4. Pedido")
-        print("5. Reposición")
-        print("6. Salir")
+        print("\n" + "-" * 40)
+        print(" " * 10 + "MENÚ REGISTRAR")
+        print("-" * 40)
+        print("1. Registrar Pieza")
+        print("2. Registrar Máquina")
+        print("3. Registrar Cliente")
+        print("4. Registrar Pedido")
+        print("5. Registrar Reposición")
+        print("6. Volver al menú principal")
+        print("-" * 40)
         opcion = input("Seleccione una opción: ")
 
         if opcion == "1":
@@ -54,19 +58,20 @@ def menu_registrar(sistema):
         elif opcion == "6":
             break
         else:
-            print("La opción es inválida.")
+            print("Opción inválida. Intente nuevamente.")
 
 def menu_listar(sistema):
     while True:
-        print("__________________________")
-        print("\n___ Menú Listar ___")
-        print("__________________________")
-        print("1. Clientes")
-        print("2. Pedidos")
-        print("3. Máquinas")
-        print("4. Piezas")
-        print("5. Contabilidad")
-        print("6. Salir")
+        print(" " + "-" * 40)
+        print(" " * 10 + "MENÚ LISTAR")
+        print("-" * 40)
+        print("1. Listar Clientes")
+        print("2. Listar Pedidos")
+        print("3. Listar Máquinas")
+        print("4. Listar Piezas")
+        print("5. Mostrar Contabilidad")
+        print("6. Volver al menú principal")
+        print("-" * 40)
         opcion = input("Seleccione una opción: ")
 
         if opcion == "1":
@@ -234,5 +239,4 @@ def mostrar_contabilidad(sistema):
 # ---------------- EJECUCIÓN ----------------
 if __name__ == "__main__":
     menu_principal()
-
 
