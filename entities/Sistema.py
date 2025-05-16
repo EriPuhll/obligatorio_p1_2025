@@ -91,25 +91,4 @@ class Sistema():
         return pedidos
 
     def listar_reposiciones(self):
-        return self.reposiciones  # es una lista, no hace falta convertir
-
-    def calcular_contabilidad(self):
-        costo_total = 0
-        ingreso_total = 0
-
-        for pedido in self.pedidos.values():
-            if pedido.estado == "entregado":
-                costo_total += pedido.maquina.costo_produccion
-                ingreso_total += pedido.precio_venta
-
-        ganancia = ingreso_total - costo_total
-        impuesto = ganancia * 0.25 if ganancia > 0 else 0
-        ganancia_final = ganancia - impuesto
-
-        return {
-           "costo_total": costo_total,
-            "ingreso_total": ingreso_total,
-            "ganancia_bruta": ganancia,
-            "impuesto": impuesto,
-            "ganancia_neta": ganancia_final
-        }
+        return self.reposiciones  # es una lista, no hace falta convertirlo
