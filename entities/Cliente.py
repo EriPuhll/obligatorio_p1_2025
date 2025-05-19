@@ -22,5 +22,5 @@ class ClienteParticular(Cliente): #hereda de cliente
 class Empresa(Cliente): #hereda de cliente
     def __init__(self, nombre: str, telefono: str, rut: str, correo: str, pagina_web: Optional[str] = None):
         super().__init__(nombre, telefono, correo)  #llamamos al constructor de la clase padre
-        self.id_unico = rut
-        self.pagina_web = pagina_web        #plus nuevos atributos
+        self.id_unico = rut             #plus nuevos atributos
+        self.pagina_web = pagina_web        #guardamos la página web si se ingresa, si no, queda como None.
