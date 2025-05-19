@@ -1,18 +1,17 @@
-from entities.Pieza import Pieza
-from typing import Optional
-from datetime import datetime
+from entities.Pieza import Pieza #importo clase
+from typing import Optional 
+from datetime import datetime #importo libreria
 
 class Reposicion:
-    # Contador de clase para ids de reposición
-    _next_id: int = 1
+    
+    _next_id: int = 1 #contador de id unico cada vez que se cree una reposición, atributo de clase
 
     def __init__(self, pieza: Pieza, lotes: int, fecha_reposicion: Optional[datetime] = None):
-    
-      # Asigno el siguiente ID disponible       
-        self.id = Reposicion._next_id # ID único de la reposición
-                  
-        Reposicion._next_id += 1 # Incremento el contador de IDs
+      
+        self.id = Reposicion._next_id #asigno id      
+        Reposicion._next_id += 1 #incremento id para proxima reposición
 
+        #atributos de instancia
         self.pieza = pieza                
         self.lotes = lotes               
-        self.fecha_reposicion = fecha_reposicion or datetime.now() # Fecha de la reposición
+        self.fecha_reposicion = fecha_reposicion or datetime.now()
