@@ -195,6 +195,22 @@ def registrar_pedido(sistema):
             print("Máquina no encontrada.")
             return
 
+        fecha_reposicion = datetime.now()
+
+        if sistema.hay_stock_suficiente(maquina):
+            estado = "entregado"
+            fecha_entrega = fecha_recepcion
+            sistema.actualizar_stock_por_pedido(Pedido(cliente, maquina, estado, fecha_recepcion, fecha_entrega, 0))  # para ajustar stock antes
+        else:
+            estado = "pendiente"
+            fecha_entrega = None
+
+        precio_base = maquina.calcular_costo_produccion() * 1.5
+        if isinstance(cliente, Empresa):
+            precio_venta = precio_base * 0.8
+        else:
+            precio_venta = precio_base
+        
         pedido = Pedido(cliente=cliente, maquina=maquina, estado="", fecha_recepcion=datetime.now(), fecha_entrega=None, precio_venta=0)
         sistema.registrar_pedido(pedido)
         print("Pedido registrado.")
