@@ -1,0 +1,53 @@
+1111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+
+PASOS PARA SUBIR UN PROYECTO DESDE VISUAL STUDIO CODE A GITHUB (DESDE CERO)
+
+2. ABRIR VISUAL STUDIO CODE Y ABRIR LA CARPETA DEL PROYECTO
+------------------------------------------------------------
+- Asegurarse de estar en la carpeta del proyecto.
+
+3. INICIALIZAR GIT (SI NO ESTÁ INICIALIZADO)
+--------------------------------------------
+  git init
+
+4. AGREGAR LOS ARCHIVOS
+------------------------
+  git add .
+
+5. CONFIGURAR NOMBRE Y CORREO (SI ES LA PRIMERA VEZ)
+----------------------------------------------------
+  git config --global user.name "Tu Nombre"
+  git config --global user.email "tuemail@ejemplo.com"
+
+6. HACER EL PRIMER COMMIT
+--------------------------
+  git commit -m "Primer commit del proyecto"
+
+7. CONECTAR CON EL REPOSITORIO DE GITHUB
+----------------------------------------
+  git remote add origin https://github.com/usuario/obligatorio_p1_2025.git
+
+8. ASEGURARSE QUE LA RAMA SE LLAME "main"
+-----------------------------------------
+  git branch -M main
+
+9. SUBIR LOS CAMBIOS AL REPOSITORIO REMOTO
+-------------------------------------------
+  git push -u origin main
+
+10. SI HAY CONFLICTOS PORQUE GITHUB TIENE UNA VERSIÓN DISTINTA
+---------------------------------------------------------------
+  git pull origin main --allow-unrelated-histories
+
+(Luego resolver conflictos, y después:)
+  git add .
+  git commit -m "Resolviendo conflictos"
+  git push -u origin main
+
+11. VERIFICACIONES ÚTILES
+--------------------------
+  git status           -> Ver el estado de los archivos
+  git remote -v        -> Ver si está vinculado a GitHub
+  git log --oneline    -> Ver historial de commits
+
+1111111111111111111111111111111111111111111111111111111111111111111111111111

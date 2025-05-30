@@ -6,9 +6,16 @@ from entities.Reposicion import Reposicion
 from entities.Requerimiento import Requerimiento
 from entities.Sistema import Sistema
 
+
 from exceptions.ExceptionClienteYaExiste import ExceptionClienteYaExiste
 from exceptions.ExceptionPiezaYaExiste import ExceptionPiezaYaExiste
 from exceptions.ExceptionMaquinaYaExiste import ExceptionMaquinaYaExiste
+from exceptions.ExceptionTextoInvalido import ExceptionTextoInvalido
+from exceptions.ExceptionNumeroInvalido import ExceptionNumeroInvalido
+from exceptions.ExceptionTelefonoInvalido import ExceptionTelefonoInvalido
+from exceptions.ExceptionCorreoInvalido import ExceptionCorreoInvalido
+from exceptions.ExceptionDatoDuplicado import ExceptionDatoDuplicado
+
 
 from datetime import datetime
 
@@ -97,24 +104,34 @@ def menu_listar(sistema):
 def registrar_pieza(sistema):
     try:
         descripcion = input("Descripción: ")
+
         costo = float(input("Costo unitario (USD): "))
-        lote = int(input("Tamaño del lote de reposición: "))
+
+        lote = input("Tamaño del lote de reposición: ")
+
         pieza = Pieza(descripcion=descripcion, costo=costo, tam_lote=lote, stock_inicial=0)
+
         sistema.registrar_pieza(pieza)
+
         print("Pieza registrada.")
+
     except Exception as e:
         print(e)
 
 def registrar_maquina(sistema):
     try:
         descripcion = input("Descripción de la máquina: ")
+        
         requerimientos = []
+
         piezas_disponibles = sistema.listar_piezas().copy()
 
         while True:
+
             agregar = input("Agregar pieza (Si/No)? ").strip().lower()
 
             if agregar == "si":
+
                 if not piezas_disponibles:
                     print("No hay más piezas disponibles para agregar.")
                     break
@@ -124,7 +141,9 @@ def registrar_maquina(sistema):
                     print(f"{pieza.id}: {pieza.descripcion}")
 
                 codigo = int(input("Código de la pieza: "))
+
                 cantidad = int(input("Cantidad necesaria: "))
+
                 pieza = sistema.piezas.get(codigo)
 
                 if pieza and pieza in piezas_disponibles:
@@ -140,7 +159,9 @@ def registrar_maquina(sistema):
                 print("Opción no válida. Escriba 'Si' o 'No'.")
 
         maquina = Maquina(descripcion=descripcion, requerimientos=requerimientos)
+
         sistema.registrar_maquina(maquina)
+
         print("Máquina registrada.")
 
     except Exception as e:
@@ -148,39 +169,65 @@ def registrar_maquina(sistema):
 
 
 
-
 def registrar_cliente(sistema):
     try:
         tipo = input("Tipo cliente (1. Particular, 2. Empresa): ")
+
+        if tipo not in ("1", "2"):
+
+            raise ExceptionTextoInvalido("Tipo inválido. Debe ser 1 o 2.")
+        
         if tipo == "1":
+
             cedula = input("Cédula: ")
+            
             nombre = input("Nombre completo: ")
+            
             telefono = input("Teléfono: ")
+
             correo = input("Correo electrónico: ")
+
             cliente = ClienteParticular(nombre=nombre, cedula=cedula, telefono=telefono, correo=correo)
+            
         elif tipo == "2":
+
             rut = input("RUT: ")
+
             nombre = input("Nombre empresa: ")
+
             pagina = input("Página web: ")
+
             telefono = input("Teléfono: ")
+
             correo = input("Correo electrónico: ")
+            
             cliente = Empresa( nombre=nombre, telefono=telefono, rut=rut, correo=correo,pagina_web=pagina)
+
         else:
+
             print("Tipo inválido.")
+
             return
+        
         sistema.registrar_cliente(cliente)
+
         print("Cliente registrado.")
+
     except Exception as e:
         print(e)
 
 def registrar_pedido(sistema):
     try:
         print("Clientes:")
+
         for cliente in sistema.listar_clientes():       #Con la funcion listar clientes ya deberia de funcionar, creo
+            
             print(f"{cliente.id}: {cliente.nombre}")
 
         id_cliente = int(input("ID del cliente: "))
+
         cliente = sistema.clientes.get(id_cliente)
+        
         if not cliente:
             print("Cliente no encontrado.")
             return
@@ -190,34 +237,65 @@ def registrar_pedido(sistema):
             print(maquina)
 
         codigo_maquina = int(input("Código de la máquina: "))
+
         maquina = sistema.maquinas.get(codigo_maquina)
         if not maquina:
             print("Máquina no encontrada.")
             return
 
+
+        if sistema.hay_stock_suficiente(maquina):
+            estado = "entregado"
+            fecha_entrega = fecha_recepcion = datetime.now()
+            sistema.actualizar_stock_por_pedido(Pedido(cliente, maquina, estado, fecha_recepcion, fecha_entrega, precio_venta=0))  # para ajustar stock antes
+        else:
+            estado = "pendiente"
+            fecha_entrega = None
+
+        precio_base = maquina.calcular_costo_produccion() * 1.5
+
+        if isinstance(cliente, Empresa):
+            precio_venta = precio_base * 0.8
+        else:
+            precio_venta = precio_base
+        
         pedido = Pedido(cliente=cliente, maquina=maquina, estado="", fecha_recepcion=datetime.now(), fecha_entrega=None, precio_venta=0)
+        
         sistema.registrar_pedido(pedido)
+
         print("Pedido registrado.")
+
     except Exception as e:
         print(e)
 
+
 def registrar_reposicion(sistema):
     try:
+
         print("Piezas disponibles:")
+
         for pieza in sistema.listar_piezas():
             print(pieza)
 
         codigo = int(input("Código de la pieza: "))
+
         pieza = sistema.piezas.get(codigo)
+
         if not pieza:
             print("Pieza no encontrada.")
             return
 
         cantidad_lotes = int(input("Cantidad de lotes a reponer: "))
-        reposicion = Reposicion(pieza=pieza, cantidad_lotes=cantidad_lotes,
-                                fecha_reposicion=None)
+
+        if cantidad_lotes <= 0:
+            raise ExceptionNumeroInvalido("La cantidad de lotes debe ser un número positivo.")
+        
+        reposicion = Reposicion(pieza=pieza, cantidad_lotes=cantidad_lotes, fecha_reposicion=None)
+
         sistema.registrar_reposicion(reposicion)
+
         print("Reposición registrada.")
+
     except Exception as e:
         print(e)
 
@@ -228,6 +306,9 @@ def listar_clientes(sistema):
     for cliente in cliente:
         print(cliente)
 ...
+
+
+
 
 """
 FALTA

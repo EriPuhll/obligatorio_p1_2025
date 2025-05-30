@@ -1,14 +1,18 @@
-from entities.Requerimiento import Requerimiento
+
+import typing
+
+if typing.TYPE_CHECKING:
+    from entities.Requerimiento import Requerimiento
 
 class Maquina:
-    # Contador de clase para códigos de máquina
-    _next_codigo: int = 1
+    
+    _next_codigo: int = 1  #contador de id unico cada vez que se cree un cliente, atributo de clase
 
-    def __init__(self, descripcion: str, requerimientos: list[Requerimiento]):
+    def __init__(self, descripcion: str, requerimientos: "Requerimiento"):
 
-        self.codigo = Maquina._next_codigo   # Código único de la máquina
-        Maquina._next_codigo += 1     # Incremento el contador de código
+        self.codigo = Maquina._next_codigo   #asigno id unico
+        Maquina._next_codigo += 1     #asignamos un nuevo id a cada nueva maquina, incrementamos el valor para la proxima
 
-        # Inicializo atributos de instancia
-        self.descripcion = descripcion    # Nombre o modelo de la máquina
-        self.requerimientos = requerimientos # Lista de Requerimiento para fabricar
+        # atributos de instancia
+        self.descripcion = descripcion    
+        self.requerimientos = requerimientos
