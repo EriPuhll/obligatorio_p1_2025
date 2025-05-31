@@ -1,6 +1,6 @@
 from datetime import datetime #importamos libreria
 from typing import Optional
-from entities.Cliente import Cliente 
+from entities.Cliente import Cliente, Empresa 
 from entities.Maquina import Maquina #importamos clase
 
 class Pedido:
@@ -21,3 +21,10 @@ class Pedido:
     self.fecha_entregado = fecha_entregado
     self.estado = estado
     self.precio = precio
+
+  # calcular precio de maquina para cliente 
+    precio_base = Maquina.calcular_costo()*1.5
+    if isinstance (Cliente, Empresa):
+      precio_base *= 0.8
+    self.precio = precio_base
+    

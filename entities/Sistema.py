@@ -23,7 +23,7 @@ class Sistema():
         self.clientes: dict[int, Cliente] = dict()
         self.pedidos: dict[int, Pedido] = dict()
         #lista que guarda objetos de reposición
-        self.reposiciones: list[Reposicion] = list()
+        self.reposiciones: list[Reposicion] = list() #dentro de piezas
 
   
 #__________________Registro__________________________
@@ -99,3 +99,17 @@ class Sistema():
         if estado:
             pedidos = [p for p in pedidos if p.estado == estado]
         return pedidos
+
+# _______________________Contabilidad___________________________
+    # BF = IT - CT
+    def contabilidad(self):
+        IT =0
+        CT=0
+        for i in range (0, len(self.pedidos)):
+            if self.pedidos.estado = "entregado":
+                IT += self.pedidos.precio
+                CT += self.pedidos.maquina.costo
+        BF = IT - CT
+        IRAE = 0.25 * BFF
+        print(f" Costo total = {CT:.2f}/n Ingreso Total = {IT:.2}/n Beneficio = {BF:.2f}/n IRAE(25%) =  {IRAE:.2f}/n Bentficio final = {0.75*BF:.2f}")
+#agregar get y set 

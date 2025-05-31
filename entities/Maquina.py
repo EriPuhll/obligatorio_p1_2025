@@ -16,3 +16,13 @@ class Maquina:
         # atributos de instancia
         self.descripcion = descripcion    
         self.requerimientos = requerimientos
+
+   
+     # calcular costo total de maquina
+ 
+        suma = 0
+        for i in range (0, len(requerimientos)):
+            suma += requerimientos.pieza.costo
+        self.costo = suma
+           
+
